@@ -1,0 +1,81 @@
+import math
+
+# Creating two calculators for user to choose from
+
+invest_calc = ("investment - to calculate the amount of interest you'll earn on your investment")
+home_loan_calc = ("bond       - to calculate the amount you'll have to pay on a home loan")
+print(invest_calc)
+print(home_loan_calc)
+
+# Requesting user input to select either 'investment' or 'bond' option
+
+user_input = input("Enter either 'investment' or 'bond' from the menu above to proceed: ").lower()
+if len(user_input) == 0:
+    print("You haven’t entered anything. Please enter either 'investment' or 'bond' ")
+elif user_input == "investment":
+    print("You have entered option investment. ")
+elif user_input == "bond":
+    print("You have entered option bond. ")
+else:
+    print("You have entered invalid option, please enter either 'investment' or 'bond'.")
+
+# If user selects 'investment' ask user the input below
+# Then using the formula illustrate the interest outcome with either 'simple' or 'compound' interest
+# Information about the formula for either 'simple' or 'compound' is in the triple brackets '''   '''
+
+'''The formula for 'simple interest' option A = P*(1 + r*t)
+The formula for 'compound interest' option  A = P * math.pow((1+r),t)
+r = is the interest entered divided by 100, e.g. if 8 "%" is entered then r is 0.08.
+P = is the amount that the user deposits.
+t = is the number of years that the money is being invested.
+A = is the total amount once the interest has been applied. '''
+
+# Using while True/ except for any user input errors
+
+
+if user_input == "investment":
+    while True:
+        try:
+            user_money = float(input("Please enter the amount of money you are depositing as a number and in £: "))
+            print("You are depositing " + "£" + str(user_money))
+            user_inter_rate = float(input("Please enter the interest rate, enter numbers only without '%' sign: "))
+            user_num_years = int(input("Please enter the number of years you are planning on investing: "))
+            break
+        except ValueError:
+            print("Oops! That was not a valid input. Try again...")
+
+    interest = input("Please enter what interest type you would like? Enter 'simple' or 'compound' interest: ").lower()
+    if len(interest) == 0:
+        print ("You haven’t entered anything. Please enter either 'simple' or 'compound'. ")
+    elif interest == "simple":
+        total_amount_simple = int(user_money*(1 + ((user_inter_rate/100)* user_num_years)))
+        print("You will receive" + " " + "£" + str(total_amount_simple) + " total amount including interest.")
+    elif interest == "compound":
+        total_amount_compound = int(user_money* math.pow((1+(user_inter_rate/100)),user_num_years))
+        print("You will receive" + " " + "£" + str(total_amount_compound) + " total amount including interest.")
+    else:
+        print("You have entered invalid option, please enter either 'simple' or 'compound'.")
+
+# If user selects 'bond' ask for the following input
+# Then using the formula illustrate the repayment outcome
+# Information about the formula is in the triple brackets '''   '''
+
+''' The formula for repayment = (i * P)/(1 - (1 + i)**(-n))
+P = is the present value of the house.
+i = is the monthly interest rate, calculated by dividing the annual interest rate by 12. 
+Remember to divide the interest entered by the user by 100 e.g. (8 / 100) before dividing by 12.
+n is the number of months over which the bond will be repaid.'''
+
+if user_input == "bond":
+    while True:
+        try:
+            house_value = float(input("Please enter current value of the house in £: "))
+            current_inter_rate = float(input("Please enter current house interest rate, enter numbers only without '%' sign: "))
+            bond_num_months = int(input("Please enter the number of months you are planning to take to repay the bond: "))
+            break
+        except ValueError:
+            print("Oops! That was not a valid input. Try again...")
+
+    monthly_int_rate = (current_inter_rate/100)/12
+    repayment = int((monthly_int_rate * house_value)/(1 - (1 + monthly_int_rate)**(-bond_num_months)))
+    print("Your repayments each month will be " + "£" + str(repayment) + " per month. ")
